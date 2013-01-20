@@ -80,6 +80,9 @@ def rented(request):
     else:
         return HttpResponseRedirect(reverse('GearSwap.views.list_all_gear'))
 
+    return render_to_response('GearSwap/rented.html', {'title': 'Rented', 'gear_to_rent': gear_to_rent, 'sidebar_title': 'Sidebar title texthere', 'sidebar_text':'Sidebar text here'}, context_instance=RequestContext(request) )
+
+
 
 def search_categories(request, cat):
     gear_list = GearItem.objects.filter(type=cat)
