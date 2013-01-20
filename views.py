@@ -23,3 +23,8 @@ def rented(request, gear_id):
     gear_to_rent.save()
 
     return render_to_response('gearswap/rented.html', {'title': 'Rented', 'gear_to_rent': gear_to_rent, 'sidebar_title': 'Sidebar title texthere', 'sidebar_text':'Sidebar text here'}, context_instance=RequestContext(request) )
+
+def search_categories(request, cat):
+    gear_list = GearItem.objects.filter(type=cat)
+
+    return render_to_response('gearswap/search_list.html', {'title': 'Gear Surf', 'subtitle':'Get your gear on!', 'sidebar_title': 'Sidebar title here', 'sidebar_text': 'Sidebar text here', 'gear_list': gear_list}, context_instance=RequestContext(request))
