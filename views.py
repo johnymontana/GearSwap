@@ -12,8 +12,13 @@ def index(request):
 
 def list_all_gear(request):
     gear_list = GearItem.objects.filter(is_available=True)
+    cat_list = []
 
-    return render_to_response('GearSwap/search_list.html', {'title': 'Gear Surf', 'subtitle': 'Rent your gear', 'gear_list': gear_list, 'sidebar_title': 'See our gear', 'sidebar_text': 'Some more info about our gear here', 'main_title':'All Available Gear', 'main_subtitle':'All Available gear is listed below'}, context_instance=RequestContext(request))
+    for gear in gear_list:
+        cat_list.append(gear.type)
+
+
+    return render_to_response('GearSwap/search_list.html', {'title': 'Gear Surf', 'subtitle': 'Rent your gear', 'gear_list': gear_list, 'sidebar_title': 'See our gear', 'sidebar_text': 'Some more info about our gear here', 'main_title':'All Available Gear', 'main_subtitle':'All Available gear is listed below', 'cat_list': cat_list}, context_instance=RequestContext(request))
 
 def post_gear(request):
     # Handle file upload
@@ -48,16 +53,16 @@ def post_gear(request):
 def gear_detail(request, gear_id):
     gear_item = GearItem.objects.get(id=gear_id)
 
-    return render_to_response('gearswap/gear_detail.html', {'title': gear_item.name, 'gear_item': gear_item, 'sidebar_title': 'Sidebar title text here', 'sidebar_text': 'Sidebar text here'}, context_instance=RequestContext(request))
+    return render_to_response('GearSwap/gear_detail.html', {'title': gear_item.name, 'gear_item': gear_item, 'sidebar_title': 'Sidebar title text here', 'sidebar_text': 'Sidebar text here'}, context_instance=RequestContext(request))
 
 def rented(request, gear_id):
     gear_to_rent = GearItem.objects.get(id=gear_id)
     gear_to_rent.is_available = False
     gear_to_rent.save()
 
-    return render_to_response('gearswap/rented.html', {'title': 'Rented', 'gear_to_rent': gear_to_rent, 'sidebar_title': 'Sidebar title texthere', 'sidebar_text':'Sidebar text here'}, context_instance=RequestContext(request) )
+    return render_to_response('GearSwap/rented.html', {'title': 'Rented', 'gear_to_rent': gear_to_rent, 'sidebar_title': 'Sidebar title texthere', 'sidebar_text':'Sidebar text here'}, context_instance=RequestContext(request) )
 
 def search_categories(request, cat):
     gear_list = GearItem.objects.filter(type=cat)
 
-    return render_to_response('gearswap/search_list.html', {'title': 'Gear Surf', 'subtitle':'Get your gear on!', 'sidebar_title': 'Sidebar title here', 'sidebar_text': 'Sidebar text here', 'gear_list': gear_list}, context_instance=RequestContext(request))
+    return render_to_response('GearSwap/search_list.html', {'title': 'Gear Surf', 'subtitle':'Get your gear on!', 'sidebar_title': 'Sidebar title here', 'sidebar_text': 'Sidebar text here', 'gear_list': gear_list}, context_instance=RequestContext(request))
