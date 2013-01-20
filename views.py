@@ -12,8 +12,13 @@ def index(request):
 
 def list_all_gear(request):
     gear_list = GearItem.objects.filter(is_available=True)
+    cat_list = []
 
-    return render_to_response('GearSwap/search_list.html', {'title': 'Gear Surf', 'subtitle': 'Rent your gear', 'gear_list': gear_list, 'sidebar_title': 'See our gear', 'sidebar_text': 'Some more info about our gear here', 'main_title':'All Available Gear', 'main_subtitle':'All Available gear is listed below'}, context_instance=RequestContext(request))
+    for gear in gear_list:
+        cat_list.append(gear.type)
+
+
+    return render_to_response('GearSwap/search_list.html', {'title': 'Gear Surf', 'subtitle': 'Rent your gear', 'gear_list': gear_list, 'sidebar_title': 'See our gear', 'sidebar_text': 'Some more info about our gear here', 'main_title':'All Available Gear', 'main_subtitle':'All Available gear is listed below', 'cat_list': cat_list}, context_instance=RequestContext(request))
 
 def post_gear(request):
     # Handle file upload
@@ -75,7 +80,6 @@ def rented(request):
     else:
         return HttpResponseRedirect(reverse('GearSwap.views.list_all_gear'))
 
-    return render_to_response('GearSwap/rented.html', {'title': 'Rented', 'gear_to_rent': gear_to_rent, 'sidebar_title': 'Sidebar title texthere', 'sidebar_text':'Sidebar text here'}, context_instance=RequestContext(request) )
 
 def search_categories(request, cat):
     gear_list = GearItem.objects.filter(type=cat)
