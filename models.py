@@ -6,5 +6,7 @@ from django.template import RequestContext
 class GearItem(models.Model):
     name = models.CharField(max_length=50)
     type = models.CharField(max_length=50)
-    price = models.PositiveIntegerField()
-
+    description = models.CharField(max_length=3000)
+    dayRentalPrice = models.PositiveIntegerField()
+    user = models.CharField(max_length=50)
+    userEmail = models.CharField(max_length=100)
