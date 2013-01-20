@@ -7,6 +7,10 @@ from django.template import Context, loader, RequestContext
 def index(request):
     return render_to_response('gearswap/index.html', {'title': 'Gear Surf', 'subtitle':'Rent your gear', 'top_text':'How does it work', 'second_text':'We facilitate peer to peer gear rentals. Want gear? Rent it. Have gear? Rent it!'}, context_instance=RequestContext(request))
 
-#def list_all_gear(request):
+def list_all_gear(request):
+    gear_list = GearItem.objects.all()
+
+    return render_to_response('gearswap/search_list.html', {'title': 'Gear Surf', 'subtitle': 'Rent your gear', 'gear_list': gear_list, 'sidebar_title': 'See our gear', 'sidebar_text': 'Some more info about our gear here', 'main_title':'All Available Gear', 'main_subtitle':'All Available gear is listed below'}, context_instance=RequestContext(request))
+
 
 
