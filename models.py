@@ -11,3 +11,4 @@ class GearItem(models.Model):
     docfile = models.FileField(upload_to='documents/%Y/%m/%d')
     user = models.CharField(max_length=50)
     userEmail = models.CharField(max_length=100)
+    is_available = models.BooleanField()
