@@ -13,7 +13,7 @@ def index(request):
 def list_all_gear(request):
     gear_list = GearItem.objects.filter(is_available=True)
 
-    return render_to_response('gearswap/search_list.html', {'title': 'Gear Surf', 'subtitle': 'Rent your gear', 'gear_list': gear_list, 'sidebar_title': 'See our gear', 'sidebar_text': 'Some more info about our gear here', 'main_title':'All Available Gear', 'main_subtitle':'All Available gear is listed below'}, context_instance=RequestContext(request))
+    return render_to_response('GearSwap/search_list.html', {'title': 'Gear Surf', 'subtitle': 'Rent your gear', 'gear_list': gear_list, 'sidebar_title': 'See our gear', 'sidebar_text': 'Some more info about our gear here', 'main_title':'All Available Gear', 'main_subtitle':'All Available gear is listed below'}, context_instance=RequestContext(request))
 
 def post_gear(request):
     # Handle file upload
@@ -26,7 +26,8 @@ def post_gear(request):
                               dayRentalPrice=form.cleaned_data['dayRentalPrice'],
                               docfile = form.cleaned_data['docfile'],
                               user=form.cleaned_data['user'],
-                              userEmail=form.cleaned_data['userEmail'])
+                              userEmail=form.cleaned_data['userEmail'],
+                              is_available=True)
             newdoc.save()
 
             # Redirect to the document list after POST
