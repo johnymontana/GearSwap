@@ -11,3 +11,7 @@ class DocumentForm(forms.Form):
     )
     user = forms.CharField(max_length=50)
     userEmail = forms.EmailField()
+
+class RentForm(forms.Form):
+    gear_id = forms.IntegerField()
+    note = forms.CharField(max_length=3000, widget=forms.Textarea)
